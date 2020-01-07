@@ -8,7 +8,7 @@ import cv2
 import numpy as np
 import time
 
-from utils.file_io_utils import * // checks and creates files
+from utils.file_io_utils import * # checks and creates files
 
 class Camera():
     def __init__(self):
