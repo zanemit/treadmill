@@ -1,4 +1,4 @@
-# Define colours
+# Define colors
 
 purple = [94/255,79/255,162/255]
 aqua = [102/255, 194/255, 165/255]
