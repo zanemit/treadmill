@@ -1,5 +1,5 @@
 // specify the pins of the camera triggers outputs
-int pinCam1 = 13; 
+int pinCam1 = 12; 
 int pinCam2 = 10;
 
 void setup() {
