@@ -138,13 +138,7 @@ class Camera():
                 grab = self.grab_frames()
 
                 # Read the state of the arduino pins and save to file
-                sensor_states = self.read_arduino_write_to_file(grab.TimeStamp)
-
-                # Read the state of the door status pins
-                ds = self.read_door_status()
-
-                # Threshold sensor data and control door of the arena
-                self.live_sensors_control(sensor_states)
+                sensor_states = self.read_arduino_write_to_file(grab.TimeStamp) # from comms.py
 
                 # If live plotting, add the data and then update plots
                 if self.live_plotting:
@@ -184,7 +178,6 @@ class Camera():
                 writer.close()
 
     # def close
-
-
+    
 if __name__ == "__main__":
     cam = Camera()
