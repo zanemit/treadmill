@@ -22,8 +22,7 @@ class Camera():
         self.get_camera_writers()   # set up a video grabber for each
         self.setup_cameras()    # set up camera parameters (triggering... )
 
-    def get_cameras(self):
-        # Get detected cameras 
+    def get_cameras(self): # get detected cameras 
         self.tlFactory = pylon.TlFactory.GetInstance()
         self.devices = self.tlFactory.EnumerateDevices()
         if not self.devices: 
@@ -31,8 +30,7 @@ class Camera():
         else:
             self.cameras = pylon.InstantCameraArray(self.camera_config["n_cameras"])  
 
-    def get_camera_writers(self):
-        # Open FFMPEG camera writers if we are saving to video
+    def get_camera_writers(self): # open FFMPEG camera writers if we are saving to video
         if self.save_to_video: 
             for i, file_name in enumerate(self.video_files_names):
                 w, h = self.camera_config["acquisition"]['frame_width'], self.camera_config["acquisition"]['frame_height']
@@ -95,7 +93,7 @@ class Camera():
         time_per_frame = (elapsed / 100) * 1000
         fps = round(1000  / time_per_frame, 2) 
         
-        print("Tot frames: {}, current fps: {}, desired fps {}.".format(
+        print("Total frames: {}, current fps: {}, desired fps {}.".format(
                     self.frame_count, fps, self.acquisition_framerate))
         return start
 
@@ -139,13 +137,6 @@ class Camera():
 
                 # Read the state of the arduino pins and save to file
                 sensor_states = self.read_arduino_write_to_file(grab.TimeStamp) # from comms.py
-
-                # If live plotting, add the data and then update plots
-                if self.live_plotting:
-                    self.append_sensors_data(sensor_states)
-                    try:
-                        self.update_sensors_plot()
-                    except: raise ValueError("Could not append live sensor data during live plotting")
 
                 # Update frame count
                 self.frame_count += 1
