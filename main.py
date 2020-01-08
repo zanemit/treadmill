@@ -13,9 +13,7 @@ from camera.camera import Camera
 from serial_com.comms import SerialComm
 from utils.file_io_utils import *
 
-from analysis.analysis import Analyzer
-from analysis.live_plotting import Plotter as LivePlotter
-from forceplate_config import Config
+from treadmill_config import Config
 
 class Main(Camera, SerialComm, Analyzer, LivePlotter, Config):
     def __init__(self):
