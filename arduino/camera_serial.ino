@@ -1,9 +1,9 @@
 // specify the pins of the camera triggers outputs
-int pinCam1 = 12;
-int pinCam2 = 10;
+int pinCam1 = 10; //basler
+//int pinCam2 = 12; //ximea
 
 // specify the pin of treadmill speed input
-int trdmSpeed = 11;
+int trdmSpeed_pin = 11;
 
 // specify the pins of electrode inputs
 //int emg1_pin = 6;
@@ -13,9 +13,9 @@ int trdmSpeed = 11;
 
 void setup() {
   pinMode(pinCam1, OUTPUT);
-  pinMode(pinCam2, OUTPUT);
+  //pinMode(pinCam2, OUTPUT);
   
-  pinMode(trdmSpeed, INPUT); 
+  pinMode(trdmSpeed_pin, INPUT); 
 
   //pinMode(emg1_pin, INPUT);
   //pinMode(emg2_pin, INPUT);
@@ -27,10 +27,10 @@ void setup() {
 
 void loop() {
   digitalWrite(pinCam1, HIGH);
-  digitalWrite(pinCam2, HIGH);
+  //digitalWrite(pinCam2, HIGH);
   delay(2); // <- change this to modify framerate
   
-  trdmSpeed_readout = digitalRead(trdmSpeed);
+  trdmSpeed_readout = digitalRead(trdmSpeed_pin);
 
   //emg1_readout = digitalRead(emg1_pin);
   //emg2_readout = digitalRead(emg2_pin);
@@ -41,7 +41,7 @@ void loop() {
   //Serial.println(String(1.0)+";"+String(trdmSpeed_readout)+";"+String(emg1_readout)+";"+String(emg2_readout)+";"+String(emg3_readout)+";"+String(emg4_readout));
 
   digitalWrite(pinCam1, LOW);
-  digitalWrite(pinCam2, LOW);
+  //digitalWrite(pinCam2, LOW);
   delay(3); // <- change this to modify framerate
   
   Serial.println(String(0.0)+";"+String(trdmSpeed_readout));
