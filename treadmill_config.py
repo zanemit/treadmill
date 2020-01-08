@@ -2,7 +2,7 @@
         ONE BASLER CAMERA + TREADMILL SPEED
 """
 
-from utils.constants import *
+from utils.colors import *
 
 # Define a config class with all the options for data acquisition and post-hoc analysis
 class Config:
