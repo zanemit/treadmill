@@ -15,7 +15,7 @@ from utils.file_io_utils import *
 
 from treadmill_config import Config
 
-class Main(Camera, SerialComm, Analyzer, LivePlotter, Config):
+class Main(Camera, SerialComm, Config):
     def __init__(self):
         Config.__init__(self)  # load the config paramaters
         Camera.__init__(self)
