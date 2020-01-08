@@ -1,4 +1,8 @@
-# after adding EMGs in the arduino, change the 'expected' number of serial inputs below (currently 2, will be 6)
+"""
+        ONE BASLER CAMERA + TREADMILL SPEED
+"""
+
+# after adding EMGs in the arduino, change the 'expected' number of serial inputs below (currently 1, will be 5)
 
 import serial
 import warnings
@@ -52,13 +56,13 @@ class SerialComm:
 		self.arduino = Arduino(self.com_port)
 		print("			... connected")
 
-	def read_serial(self, expected=2):
+	def read_serial(self, expected=1):
 		# Stream bytes through serial connections to arduino, WIP and not really working as desired
 		self.serial.flushInput()
 		self.serial.flushOutput()
 
 		ser_bytes = str(self.serial.readline())
-		if len(ser_bytes) <= 2: return None # empty string from arduino
+		if len(ser_bytes) <= 5: return None # empty string from arduino
 
 		# Remove extra characters
 		cleaned = ser_bytes.split("'")[1].split("\\")[0].split(";")
