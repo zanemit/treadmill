@@ -13,7 +13,7 @@ class Config:
     # ! Change these for every recording
     experiment_folder = "E:\\Zane\\test"   # ? This should be changed for every experiment to avoid overwriting 
     experiment_name = "test"  # should be something like YYMMDD_MOUSEID, all files for an experiment will start with this name
-    experiment_duration = 1*20  # acquisition duration in seconds, alternatively set as None
+    experiment_duration = 1*15  # acquisition duration in seconds, alternatively set as None
 
     # * Live video frames display and sensors data plotting
     live_display = False  # show the video frames as video is acquired
@@ -21,12 +21,17 @@ class Config:
 
     # * Check that these options are correct
     com_port = "COM5"  # port of the arduino running Firmata for data acquisition
-    acquisition_framerate = 200  # fps of camera triggering -> NEED TO SPECIFY SLEEP TIME IN ARDUINO for frame triggering
+    acquisition_framerate = 200  # fps of camera triggering -> NEED TO SPECIFY INTERVALS IN ARDUINO for frame triggering
     # this number is just indicative as the true acquisition rate depends on the trigger arduino
 
     overwrite_files = True # ! ATTENTION: this is useful for debug but could lead to overwriting experimental data
     
     save_to_video = True  # ! decide if you want to save the videos or not
+
+    """
+        ############## TREADMILL CONTROL  ####################
+    """
+    treadmill_max_speed = 5 # in cm/s
 
     """
         ############## POST-HOC ANALYSIS  ####################
