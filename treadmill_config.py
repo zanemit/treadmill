@@ -107,7 +107,10 @@ class Config:
     # Arduino (FIRMATA) setup options
     # * Only change these if you change the configuration of the inputs coming onto the firmata arduino
     arduino_config = {
-        "trdmSpeed_pin": 11,
+        "sensors_pins": {
+                # Specify the pins receiving input from treadmill (or emgs)
+                "trdmSpeed_pin": 11,  
+        },
         "arduino_csv_headers": ["frame_number", "elapsed", "camera_timestamp", "trdmSpeed"],
     }
 
