@@ -3,7 +3,7 @@ int pinCam1 = 10; //BaslerCam
 //int pinCam2 = 12; //XimeaCam
 
 // specify the pin of treadmill speed input
-int trdmSpeed_pin = 11;
+int trdmSpeed_pin = 6;
 
 // specify the pins of electrode inputs
 //int emg1_pin = 6;
@@ -76,7 +76,7 @@ void loop() {
   
   // read and send information to Python every 5 milliseconds
   if (currentMillis % cameraOffEnd == 0){
-    trdmSpeed_readout = digitalRead(trdmSpeed_pin); //get actual treadmill speed
+    trdmSpeed_readout = analogRead(trdmSpeed_pin); //get actual treadmill speed
 
     //emg1_readout = digitalRead(emg1_pin);
     //emg2_readout = digitalRead(emg2_pin);
