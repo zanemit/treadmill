@@ -3,7 +3,7 @@ int pinCam1 = 10; //basler
 //int pinCam2 = 12; //ximea
 
 // specify the pin of treadmill speed input
-int trdmSpeed_pin = 11;
+int trdmSpeed_pin = 6;
 
 // specify the pins of electrode inputs
 //int emg1_pin = 6;
@@ -32,7 +32,7 @@ void loop() {
   //digitalWrite(pinCam2, HIGH);
   delay(2); // <- change this to modify framerate
   
-  trdmSpeed_readout = digitalRead(trdmSpeed_pin);
+  trdmSpeed_readout = analogRead(trdmSpeed_pin);
 
   //emg1_readout = digitalRead(emg1_pin);
   //emg2_readout = digitalRead(emg2_pin);
