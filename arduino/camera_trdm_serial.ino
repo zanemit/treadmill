@@ -3,7 +3,7 @@ int pinCam1 = 10; //BaslerCam
 //int pinCam2 = 12; //XimeaCam
 
 // specify the pin of treadmill speed input
-int trdmSpeed_pin = 6;
+int trdmSpeed_pin = A0;
 
 // specify the pins of electrode inputs
 //int emg1_pin = 6;
@@ -31,6 +31,8 @@ int trdmRampDownEnd = 11000; // 3 seconds
 int trdmMaxSpeed = 0; // for incoming serial data - max treadmill speed
 int trdmIncrement = 0;
 int trdmValue = 0;
+
+int trdmSpeed_readout = 0;
 
 
 void setup() {
