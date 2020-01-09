@@ -41,40 +41,40 @@ class SerialComm:
 		print(result)
 		self.available_ports = result
 
-	def connect_serial(self):
-		ser = serial.Serial(self.com_port, timeout=0)
-		ser.baudrate  = self.baudrate
+# 	def connect_serial(self):
+# 		ser = serial.Serial(self.com_port, timeout=0)
+# 		ser.baudrate  = self.baudrate
 
-		print(ser.name, "is open: ", ser.is_open)
-		if ser.is_open: self.serial = ser
-		else: 
-			self.serial is None
-			warnings.warn("Could not connet to serial on port: {}".format(self.com_port))
+# 		print(ser.name, "is open: ", ser.is_open)
+# 		if ser.is_open: self.serial = ser
+# 		else: 
+# 			self.serial is None
+# 			warnings.warn("Could not connet to serial on port: {}".format(self.com_port))
 
 	def connect_firmata(self):
 		print("Connecting to arduino... ")
 		self.arduino = Arduino(self.com_port)
 		print("			... connected")
 
-	def read_serial(self, expected=1):
-		# Stream bytes through serial connections to arduino, WIP and not really working as desired
-		self.serial.flushInput()
-		self.serial.flushOutput()
+# 	def read_serial(self, expected=1):
+# 		# Stream bytes through serial connections to arduino, WIP and not really working as desired
+# 		self.serial.flushInput()
+# 		self.serial.flushOutput()
 
-		ser_bytes = str(self.serial.readline())
-		if len(ser_bytes) <= 5: return None # empty string from arduino
+# 		ser_bytes = str(self.serial.readline())
+# 		if len(ser_bytes) <= 5: return None # empty string from arduino
 
-		# Remove extra characters
-		cleaned = ser_bytes.split("'")[1].split("\\")[0].split(";")
+# 		# Remove extra characters
+# 		cleaned = ser_bytes.split("'")[1].split("\\")[0].split(";")
 
-		# convert to floats, but only return i we have all data
-		try:
-			numbers = [float(c) for c in cleaned]
-			if len(numbers) == expected: return numbers
-			else: raise ValueError(numbers)
-		except:
-			raise ValueError(cleaned)
-			pass 
+# 		# convert to floats, but only return i we have all data
+# 		try:
+# 			numbers = [float(c) for c in cleaned]
+# 			if len(numbers) == expected: return numbers
+# 			else: raise ValueError(numbers)
+# 		except:
+# 			raise ValueError(cleaned)
+# 			pass 
 		
 	def setup_pins(self): # given an arduino connected to firmata, create variables to reference the different pins
   		# arduino.config is originally from forceplate_config.py, here treadmill_config.py
