@@ -3,7 +3,7 @@ int pinCam1 = 10; //BaslerCam
 //int pinCam2 = 12; //XimeaCam
 
 // specify the pin of treadmill speed input
-int trdmSpeed_pin = 6;
+int trdmSpeed_pin = A0;
 
 // specify the pins of electrode inputs
 //int emg1_pin = 6;
@@ -18,6 +18,8 @@ unsigned long currentMillis = 0;
   
 int cameraOnEnd = 2; // on for 2 milliseconds
 int cameraOffEnd = 5; // ~ TTL period, camera off for 3 milliseconds
+
+int trdmSpeed_readout = 0;
 
 
 void setup() {
