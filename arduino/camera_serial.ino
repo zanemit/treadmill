@@ -3,7 +3,7 @@ int pinCam1 = 10; //basler
 //int pinCam2 = 12; //ximea
 
 // specify the pin of treadmill speed input
-int trdmSpeed_pin = 6;
+int trdmSpeed_pin = A0;
 
 // specify the pins of electrode inputs
 //int emg1_pin = 6;
@@ -11,7 +11,7 @@ int trdmSpeed_pin = 6;
 //int emg3_pin = 8;
 //int emg4_pin = 9;
 
-float trdmSpeed_readout = 0;
+int trdmSpeed_readout = 0;
 
 void setup() {
   pinMode(pinCam1, OUTPUT);
