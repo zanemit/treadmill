@@ -55,7 +55,7 @@ void loop() {
   if (Serial.available() > 0) {
     // read the incoming byte, this will be the max voltage value of the chosen treadmill protocol
     trdmMaxSpeed = Serial.read();
-    trdmIncrement = trdmMaxSpeed/trdmRampUpEnd;
+    trdmIncrement = round(trdmMaxSpeed/trdmRampUpEnd);
     }
   
   // control cameras
