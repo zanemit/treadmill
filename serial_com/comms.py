@@ -78,7 +78,7 @@ class SerialComm:
 		
 	def setup_pins(self): # given an arduino connected to firmata, create variables to reference the different pins
   		# arduino.config is originally from forceplate_config.py, here treadmill_config.py
-		self.arduino_inputs = {k:self.arduino_analog[p] for k,p in self.arduino_config["sensors_pins"].items()}
+		self.arduino_inputs = {k:self.arduino.analog[p] for k,p in self.arduino_config["sensors_pins"].items()}
 		for pin in self.arduino_inputs.values(): pin.enable_reporting()
 
 		# start board iteration
