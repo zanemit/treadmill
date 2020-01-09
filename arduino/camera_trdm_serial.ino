@@ -18,6 +18,7 @@ int trdmRun_pin = ;
 unsigned long oldCamMillis = 0;
 unsigned long oldTrdmMillis = 0;
 unsigned long oldRampMillis = 0;
+unsigned long oldTrdmSpeedMillis = 0;
 unsigned long currentMillis = 0;
   
 int cameraOnEnd = 2; // on for 2 milliseconds
@@ -75,17 +76,13 @@ void loop() {
   
   
   // read and send information to Python every 5 milliseconds
-  if (currentMillis % cameraOffEnd == 0){
+ if (currentMillis - oldTrdmSpeedMillis >= 5){
     trdmSpeed_readout = analogRead(trdmSpeed_pin); //get actual treadmill speed
-
-    //emg1_readout = digitalRead(emg1_pin);
-    //emg2_readout = digitalRead(emg2_pin);
-    //emg3_readout = digitalRead(emg3_pin);
-    //emg4_readout = digitalRead(emg4_pin);
   
     Serial.println(String(1.0)+";"+String(trdmSpeed_readout)); //send info to Python
     //Serial.println(String(1.0)+";"+String(trdmSpeed_readout)+";"+String(emg1_readout)+";"+String(emg2_readout)+";"+String(emg3_readout)+";"+String(emg4_readout));
-    }
+    oldTrdmSpeedMillis = currentMillis;
+  }  
     
   
   // control treadmill based on the maxSpeed input from Python
