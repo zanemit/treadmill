@@ -5,7 +5,7 @@ int pinCam1 = 10; //BaslerCam
 //int pinCam2 = 12; //XimeaCam
 
 // specify the pin of treadmill speed input
-byte trdmSpeed_pin = 0; // is this A0??
+int trdmSpeed_pin = 0; // is this A0??
 
 // define temporal variables
 unsigned long oldCamMillis = 0;
@@ -22,12 +22,8 @@ void setup() {
   
   pinMode(trdmSpeed_pin, INPUT); 
 
-  //pinMode(emg1_pin, INPUT);
-  //pinMode(emg2_pin, INPUT);
-  //pinMode(emg3_pin, INPUT);
-  //pinMode(emg4_pin, INPUT);
- 
   Serial.begin(115200);
+  Firmata.begin(115200);
 }
 
 
