@@ -11,6 +11,8 @@ int trdmSpeed_pin = 11;
 //int emg3_pin = 8;
 //int emg4_pin = 9;
 
+float trdmSpeed_readout = 0;
+
 void setup() {
   pinMode(pinCam1, OUTPUT);
   //pinMode(pinCam2, OUTPUT);
