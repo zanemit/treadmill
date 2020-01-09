@@ -102,6 +102,6 @@ class SerialComm:
 
 		return sensor_states
   
-  def write_serial(self):
-    treadmill_max_speed_bytes = int(255 * self.treadmill_max_speed / 100)
-    self.serial.write(bytes([self.treadmill_max_speed_bytes]))
+ 	 def write_serial(self):
+    		treadmill_max_speed_bytes = int(255 * self.treadmill_max_speed / 100)
+    		self.serial.write(bytes([self.treadmill_max_speed_bytes]))
