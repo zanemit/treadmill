@@ -103,6 +103,9 @@ class SerialComm:
 		states["camera_timestamp"] = camera_timestamp
 
 		append_csv_file(self.arduino_inputs_file, states, self.arduino_config["arduino_csv_headers"])
+		
+		# activate treadmill (here because this func is called by stream_videos)
+		self.write_to_arduino()
 
 		return sensor_states
   
