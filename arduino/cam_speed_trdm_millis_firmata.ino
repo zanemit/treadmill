@@ -11,7 +11,7 @@ int pinCam1 = 10; //BaslerCam
 byte trdmSpeed_pin = 0; // A0 pin
 
 // specify the pin of motor output
-int trdmRun_pin = ;
+int trdmRun_pin = 11;
 
 // define temporal variables
 unsigned long oldCamMillis = 0;
