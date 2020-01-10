@@ -116,6 +116,7 @@ class Config:
                 # Specify the pins receiving input from treadmill (or emgs)
                 "trdmSpeed": 6,  
         },
+        "trdm_ctrl_pin": 11,    
         "arduino_csv_headers": ["frame_number", "elapsed", "camera_timestamp", "trdmSpeed"],
         "sensors": [ "trdmSpeed"],
     }
