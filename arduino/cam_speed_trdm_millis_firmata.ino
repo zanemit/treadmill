@@ -22,11 +22,14 @@ unsigned long currentMillis = 0;
   
 int cameraOnEnd = 2; // on for 2 milliseconds
 int cameraOffEnd = 5; // ~ TTL period, camera off for 3 milliseconds
-int trdmRampUpEnd = 5000; // 5 seconds
-int trdmMaxEnd = 10000; // 5 seconds
-int trdmRampDownEnd = 15000; // 5 seconds
+int trdmStationaryStart = 5000; // 5 seconds
+int trdmRampUpEnd = 10000; // 5 seconds
+int trdmMaxEnd = 15000; // 5 seconds
+int trdmRampDownEnd = 20000; // 5 seconds
 
-int trdmMaxSpeed = 200;
+int trdmMaxSpeed = 200; // will be received from Python
+int trdmIncrement = 0; // will be calculated based on input from Python
+int trdmValue = 0; // will be updated in loop
 
 /*==============================================================================
  * FUNCTIONS
@@ -79,6 +82,10 @@ void loop() {
   
   
   // control treadmill based on trdmMaxSpeed 
+  if (currentMillis - oldTrdmMillis < trdmStationaryStart) {
+    trdmValue = 0; 
+  }
+  
   if (currentMillis - oldTrdmMillis < trdmRampUpEnd){ //ramp up
     if (currentMillis - oldRampMillis < 1){
       analogWrite(trdmRun_pin, trdmValue);
@@ -105,5 +112,9 @@ void loop() {
       analogWrite(trdmRun_pin, trdmValue);
       oldRampMillis = currentMillis;
     }
+  }
+  
+  else{
+   trdmValue = 0; 
   }
 }
