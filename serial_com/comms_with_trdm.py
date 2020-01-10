@@ -78,8 +78,12 @@ class SerialComm:
 		
 	def setup_pins(self): # given an arduino connected to firmata, create variables to reference the different pins
   		# arduino.config is originally from forceplate_config.py, here treadmill_config.py
+		# variables to reference arduino input pins (trdmSpeed and EMGs)
 		self.arduino_inputs = {k:self.arduino_analog[p] for k,p in self.arduino_config["sensors_pins"].items()}
 		for pin in self.arduino_inputs.values(): pin.enable_reporting()
+		
+		# variables to reference arduino trdm_ctrl pin (analog output)
+		self.trdm_ctrl_pin = self.arduino.get_pin('a:{}:o'.format(self.arduino_config['door_open_pin']))
 
 		# start board iteration
 		it = util.Iterator(self.arduino)
@@ -102,6 +106,6 @@ class SerialComm:
 
 		return sensor_states
   
- 	 def write_serial(self):
-    		treadmill_max_speed_bytes = int(255 * self.treadmill_max_speed / 100)
-    		self.serial.write(bytes([self.treadmill_max_speed_bytes]))
+ 	 def write_to_arduino(self):
+    		treadmill_max_voltage = int(255 * self.treadmill_max_speed / 100)
+    		self.trdm_ctrl_pin.write(treadmill_max_voltage)
