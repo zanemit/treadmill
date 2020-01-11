@@ -63,8 +63,6 @@ class Main(Camera, SerialComm, Config):
         time.sleep(1) # necessary for some reason, otherwise pin reading *sometimes* == None! perhaps sleep could shortened if needed
         while True:
             trdm_input = self.read_arduino_inputs()['trdmSpeed']
-            print(type(trdm_input))
-            print(trdm_input != 0.0)
             evaluated = trdm_input != 0.0
             if evaluated == True:
                 print('...trigger arrived.')
