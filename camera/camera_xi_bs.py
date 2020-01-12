@@ -134,25 +134,9 @@ class Camera():
             raise ValueError("bsCam grab failed")
             break
             
-        if self.live_display:
-                image_windows[0].SetImage
-                image_windows[1].SetImage(bsGrab)
-                image_windows[1].Show()
-        return grab
-       
-        for i, (writer, cam) in enumerate(zip(self.cam_writers.values(), self.cameras)): 
-            try:
-                grab = cam.RetrieveResult(self.camera_config["timeout"])
-            if not grab.GrabSucceeded():
-                break
-            else:
-                if self.save_to_video:
-                    writer.writeFrame(grab.Array)
-                pass
-
-            if self.live_display: # basler camera only
-                image_window.SetImage(grab)
-                image_window.Show()
+          if self.live_display: # basler camera only
+              image_window.SetImage(grab)
+              image_window.Show()
         return [xiGrab, bsGrab]
 
 
