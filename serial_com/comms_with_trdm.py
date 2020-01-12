@@ -1,5 +1,5 @@
 """
-        ONE BASLER CAMERA + TREADMILL SPEED
+        ONE BASLER CAMERA + TREADMILL SPEED + UNTESTED ATTEMPT TO CONTROL TRDM
 """
 
 # after adding EMGs in the arduino, change the 'expected' number of serial inputs below (currently 1, will be 5)
