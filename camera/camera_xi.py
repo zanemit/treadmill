@@ -29,10 +29,10 @@ class Camera():
         if self.save_to_video:
             w, h = self.camera_config["acquisition"]["frame_width"], self.camera_config["acquisition"]["frame_height"]
             indict = self.camera_config["inputdict"].copy()
-            indict['s'] = '{}x{}'.format(w,h)
+            indict['-s'] = '{}x{}'.format(w,h)
             self.xiCamWriter = skvideo.io.FFmpegWriter(self.video_files_names[0], outputdict = self.camera_config["outputdict"], inputdict = indict)
             print("Writing to: {}".format(self.video_files_names[0]))       
-         else:
+        else:
             self.xiCamWriter = None 
             
 
@@ -45,7 +45,7 @@ class Camera():
           # set up exposure and frame size
           self.xiCam.set_exposure(int(self.camera_config["acquisition"]["exposure"]))
           self.xiCam.set_width(int(self.camera_config["acquisition"]["frame_width"]))
-          self.xiCam.set_height(int(self.camera_config["acquisition"]["frame_heigth"]))
+          self.xiCam.set_height(int(self.camera_config["acquisition"]["frame_height"]))
           self.xiCam.set_gain(int(self.camera_config["acquisition"]["gain"]))
           self.xiCam.set_offsetY(int(self.camera_config["acquisition"]["frame_offset_y"]))
           self.xiCam.set_offsetX(int(self.camera_config["acquisition"]["frame_offset_x"]))
@@ -53,13 +53,14 @@ class Camera():
           
           # trigger mode setup
           if self.camera_config["trigger_mode"]:
+              #self.xiCam.set_trigger_selector('XI_TRG_SEL_FRAME_START')
               self.xiCam.set_trigger_selector('XI_TRG_SEL_FRAME_START')
               self.xiCam.set_gpi_selector('XI_GPI_PORT1')
               self.xiCam.set_gpi_mode('XI_GPI_TRIGGER')
-              self.xiCam.set_trg_source('XI_TRG_EDGE_RISING')
+              self.xiCam.set_trigger_source('XI_TRG_EDGE_RISING')
               self.xiCam.set_buffers_queue_size(10)
               self.xiCam.set_acq_transport_buffer_commit(10) # maybe? number of buffers allocated for grabbing    
-              
+              self.xiCam.set_acq_transport_buffer_size(128*1024)
           else:
               self.xiCam.set_gpi_mode('XI_GPI_OFF')
               
@@ -84,49 +85,50 @@ class Camera():
     def grab_frames(self):
         try:
             xiGrab = xiapi.Image()
-            xiCam.get_image(TimeOut = self.camera_config["timeout"], xiGrab)
+            self.xiCam.get_image(xiGrab, timeout = self.camera_config["timeout"])
+            #print('I got this far',xiGrab.get_image_data_numpy())
             if self.save_to_video:
-                self.xiCamWriter.writeFrame(xiGrab)
+                self.xiCamWriter.writeFrame(xiGrab.get_image_data_numpy())
         except:
+            raise
             raise ValueError("xiCam grab failed")
-            break
 
-        return [xiGrab]
+        return xiGrab
 
 
     def stream_videos(self, max_frames=None):        
         # ? Keep looping to acquire frames
         while True:
-            try:
-                if self.frame_count % 100 == 0:  # Print the FPS in the last 100 frames
-                    if self.frame_count == 0: start = time.time()
-                    else: start = self.print_current_fps(start)
+    
+            if self.frame_count % 100 == 0:  # Print the FPS in the last 100 frames
+                if self.frame_count == 0: start = time.time()
+                else: start = self.print_current_fps(start)
 
-                # ! Loop over each camera and get frames
-                xiGrab = self.grab_frames()
+            # ! Loop over each camera and get frames
+            xiGrab = self.grab_frames()
 
-                # Read the state of the arduino pins and save to file
-                sensor_states = self.read_arduino_write_to_file(xiCam.get_timestamp) # use with the regular comms.py
+            # Read the state of the arduino pins and save to file
+            sensor_states = self.read_arduino_write_to_file(self.xiCam.get_timestamp) # use with the regular comms.py
 
-                # Update frame count
-                self.frame_count += 1
+            # Update frame count
+            self.frame_count += 1
 
-                # Stop if reached max frames
-                if max_frames is not None:
-                        if self.frame_count >= max_frames: break
+            # Stop if reached max frames
+            if max_frames is not None:
+                if self.frame_count >= max_frames: break
 
-                # stop if enough time has elapsed
-                if self.experiment_duration is not None:
-                    if time.time() - self.exp_start_time/1000 > self.experiment_duration: 
-                        print("Terminating acquisition - reached max time")
-                        raise KeyboardInterrupt("terminating") # need to raise an error here to be cached in main
-
+            # stop if enough time has elapsed
+            if self.experiment_duration is not None:
+                if time.time() - self.exp_start_time/1000 > self.experiment_duration: 
+                    print("Terminating acquisition - reached max time")
+                    raise KeyboardInterrupt("terminating") # need to raise an error here to be cached in main
         # Close camera
-        xiCam.close_device()
+        self.xiCam.close_device()
 
+    
     def close_ffmpeg_writers(self):
         if self.save_to_video: 
-            xiCamWriter.close()
+            self.xiCamWriter.close()
     
 if __name__ == "__main__":
     cam = Camera()
