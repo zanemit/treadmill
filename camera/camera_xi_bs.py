@@ -30,18 +30,12 @@ class Camera():
             raise ValueError('Could not find a Ximea camera')
         if not self.bsCam:
             raise ValueError('Could not find a Basler camera')
-        
-        #self.devices = self.tlFactory.EnumerateDevices()
-        #if not self.devices: 
-        #    raise ValueError("Could not find any camera")
-        #else:
-        #    self.cameras = pylon.InstantCameraArray(self.camera_config["n_cameras"])  
 
     def get_camera_writers(self): # open FFMPEG camera writers if we are saving to video
         if self.save_to_video:
             w, h = self.camera_config["acquisition"]["frame_width"], self.camera_config["acquisition"]["frame_height"]
             indict = self.camera_config["inputdict"].copy()
-            indict['s'] = '{}x{}'.format(w,h)
+            indict['-s'] = '{}x{}'.format(w,h)
             self.xiCamWriter = skvideo.io.FFmpegWriter(self.video_files_names[0], outputdict = self.camera_config["outputdict"], inputdict = indict)
             print("Writing to: {}".format(self.video_files_names[0]))
             self.bsCamWriter = skvideo.io.FFmpegWriter(self.video_files_names[1], outputdict = self.camera_config["outputdict"], inputdict = indict)
@@ -53,7 +47,7 @@ class Camera():
     def setup_cameras(self):
           # set up cameras
           self.xiCam.open_device()
-          print("Using device ", self.xiCam.get_device_name()) #xiGetDeviceInfoString, alternatively get.device_model_id()
+          print("Using device ", self.xiCam.get_device_name()) 
           
           self.bsCam.Open()
           print("Using device ", self.bsCam.GetDeviceInfo().GetModelName())
@@ -69,11 +63,11 @@ class Camera():
           self.xiCam.set_offsetY(int(self.camera_config["acquisition"]["frame_offset_y"]))
           self.xiCam.set_offsetX(int(self.camera_config["acquisition"]["frame_offset_x"]))
           
-          self.bsCam.ExposureTime.FromString(self.camera_config["acquisition"]["exposure"])
-          self.bsCam.Width.FromString(self.camera_config["acquisition"]["frame_width"])
-          self.bsCam.Height.FromString(self.camera_config["acquisition"]["frame_height"])
-          self.bsCam.Gain.FromString(self.camera_config["acquisition"]["gain"])
-          self.bsCam.OffsetY.FromString(self.camera_config["acquisition"]["frame_offset_y"])
+          self.bsCam.ExposureTime.FromString(self.camera_config["acquisition"]["Exposure"])
+          self.bsCam.Width.FromString(self.camera_config["acquisition"]["Frame_width"])
+          self.bsCam.Height.FromString(self.camera_config["acquisition"]["Frame_height"])
+          self.bsCam.Gain.FromString(self.camera_config["acquisition"]["Gain"])
+          self.bsCam.OffsetY.FromString(self.camera_config["acquisition"]["Frame_offset_y"])
           self.bsCam.OffsetX.FromString(self.camera_config["acquisition"]["frame_offset_x"])
           
           # trigger mode setup
@@ -84,6 +78,7 @@ class Camera():
               self.xiCam.set_trg_source('XI_TRG_EDGE_RISING')
               self.xiCam.set_buffers_queue_size(10)
               self.xiCam.set_acq_transport_buffer_commit(10) # maybe? number of buffers allocated for grabbing
+              self.xiCam.set_acq_transport_buffer_size(128*1024)
               
               self.bsCam.TriggerSelector.FromString('FrameStart')
               self.bsCam.TriggerMode.FromString('On')
@@ -120,22 +115,22 @@ class Camera():
     def grab_frames(self):
         try:
             xiGrab = xiapi.Image()
-            xiCam.get_image(TimeOut = self.camera_config["timeout"], xiGrab)
+            self.xiCam.get_image(xiGrab, timeout = self.camera_config["timeout"])
             if self.save_to_video:
-                self.xiCamWriter.writeFrame(xiGrab)
+                self.xiCamWriter.writeFrame(xiGrab.get_image_data_numpy())
         except:
             raise ValueError("xiCam grab failed")
-            break
+            
         try:
-            bsGrab = bsCam.RetrieveResult(self.camera_config["timeout"])
+            bsGrab = self.bsCam.RetrieveResult(self.camera_config["timeout"])
             if self.save_to_video:
                 self.bsCamWriter.writeFrame(bsGrab.Array)
          except:
             raise ValueError("bsCam grab failed")
-            break
+            
             
           if self.live_display: # basler camera only
-              image_window.SetImage(grab)
+              image_window.SetImage(bsGrab)
               image_window.Show()
         return [xiGrab, bsGrab]
 
@@ -180,8 +175,8 @@ class Camera():
                 raise ValueError("Could not grab frame within timeout")
 
         # Close camera
-        xiCam.close_device()
-        bsCam.Close()
+        self.xiCam.close_device()
+        self.bsCam.Close()
 
     def close_pylon_windows(self):
         if self.live_display:
@@ -189,8 +184,8 @@ class Camera():
 
     def close_ffmpeg_writers(self):
         if self.save_to_video: 
-            xiCamWriter.close()
-            bsCamWriter.close()
+            self.xiCamWriter.close()
+            self.bsCamWriter.close()
     
 if __name__ == "__main__":
     cam = Camera()
