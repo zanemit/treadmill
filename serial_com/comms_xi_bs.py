@@ -68,7 +68,7 @@ class SerialComm:
 		now = time.time() * 1000
 		states["elapsed"] = now - self.exp_start_time
 		states["xiCam_timestamp"] = xiCam_timestamp
-    		states["bsCam_timestamp"] = bsCam_timestamp
+		states["bsCam_timestamp"] = bsCam_timestamp
 
 		append_csv_file(self.arduino_inputs_file, states, self.arduino_config["arduino_csv_headers"])
 
