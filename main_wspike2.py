@@ -9,8 +9,8 @@ import numpy as np
 import threading
 import time
 
-from camera.camera import Camera
-from serial_com.comms import SerialComm
+from camera.camera_xi_bs import Camera
+from serial_com.comms_xi_bs import SerialComm
 from treadmill_config import Config
 from utils.file_io_utils import *
 
@@ -65,7 +65,7 @@ class Main(Camera, SerialComm, Config):
             trdm_input = self.read_arduino_inputs()['trdmSpeed']
             evaluated = trdm_input != 0.0
             if evaluated == True:
-                print('...trigger arrived.')
+                print('             ...trigger arrived.')
                 self.trigger_arrived.set()
                 break
             
@@ -104,4 +104,3 @@ if __name__ == "__main__":
     m = Main()
     m.setup_experiment_files()
     m.start_experiment()
-
