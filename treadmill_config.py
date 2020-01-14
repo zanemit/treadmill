@@ -11,16 +11,16 @@ class Config:
     """
 
     # ! Change these for every recording
-    experiment_folder = "E:\\Zane\\test"   # ? This should be changed for every experiment to avoid overwriting 
-    experiment_name = "test"  # should be something like YYMMDD_MOUSEID, all files for an experiment will start with this name
-    experiment_duration = 1*33  # acquisition duration in seconds, alternatively set as None
+    experiment_folder = "D:\\ZM\\200114"   # ? This should be changed for every experiment to avoid overwriting 
+    experiment_name = "200114_518_3_0.5V"  # should be something like YYMMDD_MOUSEID, all files for an experiment will start with this name
+    experiment_duration = 1*25  # acquisition duration in seconds, alternatively set as None
 
     # * Live video frames display and sensors data plotting
     live_display = False  # show the video frames as video is acquired
     live_plotting = False
 
     # * Check that these options are correct
-    com_port = "COM5"  # port of the arduino running Firmata for data acquisition
+    com_port = "COM3"  # port of the arduino running Firmata for data acquisition
     acquisition_framerate = 200  # fps of camera triggering -> NEED TO SPECIFY INTERVALS IN ARDUINO for frame triggering
     # this number is just indicative as the true acquisition rate depends on the trigger arduino
 
@@ -76,18 +76,24 @@ class Config:
 
     camera_config = {
         "video_format": ".avi",
-        "n_cameras": 1,  # initially just the basler
+        "n_cameras": 2,  # initially just the basler
         "timeout": 100,   # frame acquisition timeout
 
         # ? Trigger mode and acquisition options -> needed for constant framerate
         "trigger_mode": True,  # hardware triggering
         "acquisition": {    
-            "exposure": "1000",
-            "frame_width": "288",  # must be a multiple of 32
-            "frame_height": "288", # must be a multiple of 32
-            "gain": "12",
-            "frame_offset_y": "612",
-            "frame_offset_x": "672",
+            "xiExposure": "1000", 
+            "xiFrame_width": "608",  # must be a multiple of 32 (e.g.288) 
+            "xiFrame_height": "256", # must be a multiple of 32 (e.g.288)
+            "xiGain": "7.4", #12
+            "xiFrame_offset_y": "64", #612
+            "xiFrame_offset_x": "32", #672
+            "bsExposure": "1000", 
+            "bsFrame_width": "1312",  # must be a multiple of 32 (e.g.288)
+            "bsFrame_height": "512", # must be a multiple of 32 (e.g.288)
+            "bsGain": "12", #12
+            "bsFrame_offset_y": "484", #612
+            "bsFrame_offset_x": "672", #672
         },
 
         # all commands and options  https://gist.github.com/tayvano/6e2d456a9897f55025e25035478a3a50
@@ -114,12 +120,13 @@ class Config:
     arduino_config = {
         "sensors_pins": {
                 # Specify the pins receiving input from treadmill (or emgs)
-                "trdmSpeed": 6,  
+                "trdmSpeed": 0,  
         },
-        "trdm_ctrl_pin": 11,    
-        "arduino_csv_headers": ["frame_number", "elapsed", "camera_timestamp", "trdmSpeed"],
+        "arduino_csv_headers": ["frame_number", "elapsed", "bsCam_timestamp", "xiCam_timestamp", "trdmSpeed"],
         "sensors": [ "trdmSpeed"],
     }
 
     def __init__(self): 
         return # don't need to do anything but we need this func
+
+         
