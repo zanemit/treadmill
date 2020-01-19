@@ -1,5 +1,6 @@
 # treadmill
-This repository contains code to control a motorised treadmill and obtain its speed readout synchronised with video data acquisition from two cameras.
+This repository contains code to control a motorised treadmill while acquiring its speed readout and video data from two cameras.
+
 The structure and detailed content of the repository is described below.
 
 
