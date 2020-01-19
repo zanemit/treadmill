@@ -1,5 +1,5 @@
 """
-        ONE BASLER CAMERA, TRDM SPEED READOUT, SPIKE2 TO CONTROL TRDM & TRIGGER REC
+This code is for a setup with two Basler cameras and a treadmill controlled by the Spike2 software.
 """
 import sys
 sys.path.append("./")
