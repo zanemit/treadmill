@@ -1,5 +1,5 @@
 """
-        ONE BASLER CAMERA + TREADMILL SPEED + UNTESTED ATTEMPT TO CONTROL TRDM
+This is an untested piece of code for potentially controlling the treadmill with an arduino.
 """
 
 # after adding EMGs in the arduino, change the 'expected' number of serial inputs below (currently 1, will be 5)
