@@ -15,10 +15,6 @@ class Config:
     experiment_name = "200114_518_3_0.5V"  # should be something like YYMMDD_MOUSEID, all files for an experiment will start with this name
     experiment_duration = 1*25  # acquisition duration in seconds, alternatively set as None
 
-    # * Live video frames display and sensors data plotting
-    live_display = False  # show the video frames as video is acquired
-    live_plotting = False
-
     # * Check that these options are correct
     com_port = "COM3"  # port of the arduino running Firmata for data acquisition
     acquisition_framerate = 200  # fps of camera triggering -> NEED TO SPECIFY INTERVALS IN ARDUINO for frame triggering
@@ -57,12 +53,6 @@ class Config:
                 },
     }
 
-    """
-        ############## LIVE PLOTTING  ####################
-    """
-    live_plotting_config = {
-        "n_timepoints": 100, # number of frames to show in the plot
-    }
 
     """
         ############## CAMERA CONFIG  ####################
