@@ -9,8 +9,8 @@ import numpy as np
 import threading
 import time
 
-from camera.camera_xi_bs import Camera
-from serial_com.comms_xi_bs import SerialComm
+from camera.camera_bs2 import Camera
+from serial_com.comms import SerialComm
 from treadmill_config import Config
 from utils.file_io_utils import *
 
