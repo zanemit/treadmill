@@ -1,5 +1,5 @@
-"""
-        ONE BASLER CAMERA + TREADMILL SPEED
+""""
+This code is for a setup with one Basler camera, one Ximea camera, and a treadmill controlled by the Spike2 software.
 """
 
 from utils.colors import *
