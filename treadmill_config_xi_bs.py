@@ -29,11 +29,6 @@ class Config:
     save_to_video = True  # ! decide if you want to save the videos or not
 
     """
-        ############## TREADMILL CONTROL  ####################
-    """
-    treadmill_max_speed = 5 # in cm/s
-
-    """
         ############## POST-HOC ANALYSIS  ####################
     """
     analysis_config = { 
