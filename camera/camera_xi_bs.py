@@ -151,8 +151,7 @@ class Camera():
                     else: start = self.print_current_fps(start)
 
                 # ! Loop over each camera and get frames
-                xiGrab = self.grab_frames()[0]
-                bsGrab = self.grab_frames()[1]
+                xiGrab, bsGrab = self.grab_frames()
 
                 # Read the state of the arduino pins and save to file
                 sensor_states = self.read_arduino_write_to_file(xiCam.get_timestamp, bsGrab.TimeStamp) # from comms.py
