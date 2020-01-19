@@ -1,5 +1,6 @@
 """
-        ONE BASLER CAMERA + TREADMILL SPEED
+This is the original code for a setup with two identical basler cameras,
+and functions for both serial- and firmata-based data readout.
 """
 
 # after adding EMGs in the arduino, change the 'expected' number of serial inputs below (currently 1, will be 5)
