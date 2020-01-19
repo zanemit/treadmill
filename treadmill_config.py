@@ -77,18 +77,18 @@ class Config:
         # ? Trigger mode and acquisition options -> needed for constant framerate
         "trigger_mode": True,  # hardware triggering
         "acquisition": {    
+            "cam0Exposure": "1000", 
+            "cam0Frame_width": "608",  # must be a multiple of 32 (e.g.288) 
+            "cam0Frame_height": "256", # must be a multiple of 32 (e.g.288)
+            "cam0Gain": "7.4", #12
+            "cam0Frame_offset_y": "64", #612
+            "cam0Frame_offset_x": "32", #672
             "cam1Exposure": "1000", 
-            "cam1Frame_width": "608",  # must be a multiple of 32 (e.g.288) 
-            "cam1Frame_height": "256", # must be a multiple of 32 (e.g.288)
-            "cam1Gain": "7.4", #12
-            "cam1Frame_offset_y": "64", #612
-            "cam1Frame_offset_x": "32", #672
-            "cam2Exposure": "1000", 
-            "cam2Frame_width": "1312",  # must be a multiple of 32 (e.g.288)
-            "cam2Frame_height": "512", # must be a multiple of 32 (e.g.288)
-            "cam2Gain": "12", #12
-            "cam2Frame_offset_y": "484", #612
-            "cam2Frame_offset_x": "672", #672
+            "cam1Frame_width": "1312",  # must be a multiple of 32 (e.g.288)
+            "cam1Frame_height": "512", # must be a multiple of 32 (e.g.288)
+            "cam1Gain": "12", #12
+            "cam1Frame_offset_y": "484", #612
+            "cam1Frame_offset_x": "672", #672
         },
 
         # all commands and options  https://gist.github.com/tayvano/6e2d456a9897f55025e25035478a3a50
