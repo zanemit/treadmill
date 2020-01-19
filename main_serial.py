@@ -1,5 +1,6 @@
 """
-        ONE BASLER CAMERA + TREADMILL SPEED
+This code is for a setup with any number of cameras of any type, and treadmill speed acquisition with serial,
+but does not involve control of the treadmill.
 """
 import sys
 sys.path.append("./")
