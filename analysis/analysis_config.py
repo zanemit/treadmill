@@ -1,3 +1,6 @@
+import sys
+sys.path.append("./")
+
 class Config:
     analysis_config = { 
         "data_folder": "W:\\murray\\Zane", # where the data to analyse are stored
@@ -18,3 +21,4 @@ class Config:
         'white' : [1., 1., 1.],
         'grey' : [.7, .7, .7]
     }
+
