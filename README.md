@@ -13,7 +13,7 @@ Scripts for the Basler/Ximea version:
 * comms_xi_bs.py - takes care of communication between Python and Arduino
 * treadmill_config_xi_bs.py - sets parameters for video data acquisition and output files
 
-Scripts for the Basler/Ximea version:
+Scripts for the two-Basler version:
 * camera_bs2.py - sets up, and acquires frames from, two Basler cameras
 * comms.py - takes care of communication between Python and Arduino
 * treadmill_config.py - sets parameters for video data acquisition and output files
